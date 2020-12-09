@@ -22,6 +22,14 @@ public class ProfileController extends BaseController {
                 .build();
     }
 
+    // POST api/profile/signup
+    public ANRequest getSignUpRequest(String userName, String password) {
+
+        return getPostRequest("/profile/signup")
+                .addJSONObjectBody(createLoginRequest(userName, password))
+                .build();
+    }
+
     // {"UserName": userName, "Password": password}
     private JSONObject createLoginRequest(String userName, String password) {
         JSONObject jsonObject = new JSONObject();

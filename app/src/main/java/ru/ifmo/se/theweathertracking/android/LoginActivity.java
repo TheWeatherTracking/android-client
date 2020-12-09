@@ -2,6 +2,7 @@ package ru.ifmo.se.theweathertracking.android;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity {
 
     Button submitButton;
     EditText email, password;
-    TextView signupLink;
+    TextView signUpLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,14 @@ public class LoginActivity extends BaseActivity {
         submitButton = findViewById(R.id.btn_login);
         email = findViewById(R.id.input_email);
         password = findViewById(R.id.input_password);
-        signupLink = findViewById(R.id.link_signup);
+        signUpLink = findViewById(R.id.link_signup);
 
         submitButton.setOnClickListener((View v) -> login());
+        signUpLink.setOnClickListener((View v) -> {
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         Context ctx = getApplicationContext();
         profileController = new ProfileController(ctx);
@@ -67,13 +73,12 @@ public class LoginActivity extends BaseActivity {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
         profileController.getLoginRequest(emailText, passwordText)
                 .getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    //TODO: handle login response
                     JSONObject entity = response.getJSONObject("Entity");
                     String token = entity.getString("Token");
                     long expiration = entity.getLong("Expires");
@@ -81,8 +86,7 @@ public class LoginActivity extends BaseActivity {
                 } catch (JSONException e) {
                     onLoginFailed();
                     e.printStackTrace();
-                }
-                finally {
+                } finally {
                     progressDialog.dismiss();
                 }
             }
@@ -121,7 +125,7 @@ public class LoginActivity extends BaseActivity {
         }
 
         if (passwordText.isEmpty() || passwordText.length() < 4 || passwordText.length() > 10) {
-            password.setError("between 4 and 10 alphanumeric characters");
+            password.setError("Password should be between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             password.setError(null);
