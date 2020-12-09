@@ -3,8 +3,6 @@ package ru.ifmo.se.theweathertracking.android;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.FragmentTransaction;
-
 import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 
 public class MainActivity extends BaseActivity {
