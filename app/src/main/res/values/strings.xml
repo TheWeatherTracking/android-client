@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TheWeatherTracking</string>
+    <!-- Key names for properties stored in shared properties -->
+    <string name="security_bucket_name">security.preferences.bucket</string>
+    <string name="security_token_value">security.token.value</string>
+    <string name="security_token_expiration">security.token.expiration</string>
+    <!-- Variables related to REST API -->
+    <string name="api_root_url"></string>
 </resources>
