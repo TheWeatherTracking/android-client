@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_now">
+    app:startDestination="@+id/nav_three_days">
 
-    <fragment
+    <!--fragment
         android:id="@+id/nav_now"
         android:name="ru.ifmo.se.theweathertracking.android.ui.now.NowFragment"
         android:label="@string/menu_now"
-        tools:layout="@layout/fragment_now" />
+        tools:layout="@layout/fragment_now" /-->
 
-    <fragment
+    <!--fragment
         android:id="@+id/nav_today"
         android:name="ru.ifmo.se.theweathertracking.android.ui.today.TodayFragment"
         android:label="@string/menu_today"
-        tools:layout="@layout/fragment_today" />
+        tools:layout="@layout/fragment_today" /-->
 
-    <fragment
+    <!--fragment
         android:id="@+id/nav_yesterday"
         android:name="ru.ifmo.se.theweathertracking.android.ui.yesterday.YesterdayFragment"
         android:label="@string/menu_yesterday"
-        tools:layout="@layout/fragment_yesterday" />
+        tools:layout="@layout/fragment_yesterday" /-->
 
     <fragment
         android:id="@+id/nav_three_days"

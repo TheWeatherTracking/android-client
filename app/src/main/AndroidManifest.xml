@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheWeatherTracking">
         <activity
-            android:name="ru.ifmo.se.theweathertracking.android.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.TheWeatherTracking.NoActionBar">
             <intent-filter>
