@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">TheWeatherTracking</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_now">Погода сейчас</string>
+    <string name="menu_today">Погода сегодня</string>
+    <string name="menu_yesterday">Погода вчера</string>
+    <string name="menu_three_days">Погода последние три дня</string>
+
     <!-- Key names for properties stored in shared properties -->
     <string name="security_bucket_name">security.preferences.bucket</string>
     <string name="security_token_value">security.token.value</string>
