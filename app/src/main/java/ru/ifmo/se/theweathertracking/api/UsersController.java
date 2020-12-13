@@ -7,25 +7,25 @@ import com.androidnetworking.common.ANRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// example of profile api
-public class ProfileController extends BaseController {
+// api/users
+public class UsersController extends BaseController {
 
-    public ProfileController(Context ctx) {
+    public UsersController(Context ctx) {
         super(ctx);
     }
 
-    // POST api/profile/login
+    // POST api/users
     public ANRequest getLoginRequest(String userName, String password) {
-
-        return getPostRequest("/profile/login")
+//TODO: implement right login request
+        return getPostRequest("/users")
                 .addJSONObjectBody(createLoginRequest(userName, password))
                 .build();
     }
 
-    // POST api/profile/signup
+    // POST api/users
     public ANRequest getSignUpRequest(String userName, String password) {
-
-        return getPostRequest("/profile/signup")
+//TODO: implement right sign up request
+        return getPostRequest("/users")
                 .addJSONObjectBody(createLoginRequest(userName, password))
                 .build();
     }

@@ -10,12 +10,12 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
-import ru.ifmo.se.theweathertracking.api.ProfileController;
+import ru.ifmo.se.theweathertracking.api.UsersController;
 import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 
 public class LoginActivity extends BaseActivity {
     private final String tag = "Main activity";
-    private ProfileController profileController;
+    private UsersController usersController;
     private PropertiesManager propertiesManager;
 
     @Override
@@ -54,7 +54,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         Context ctx = getApplicationContext();
-        profileController = new ProfileController(ctx);
+        usersController = new UsersController(ctx);
         propertiesManager = new PropertiesManager(ctx);
     }
 
@@ -73,16 +73,15 @@ public class LoginActivity extends BaseActivity {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        profileController.getLoginRequest(emailText, passwordText)
+        usersController.getLoginRequest(emailText, passwordText)
                 .getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     //TODO: handle login response
                     JSONObject entity = response.getJSONObject("Entity");
-                    String token = entity.getString("Token");
                     long expiration = entity.getLong("Expires");
-                    onLoginSuccess(token, expiration);
+                    onLoginSuccess(emailText, passwordText, expiration);
                 } catch (JSONException e) {
                     onLoginFailed();
                     e.printStackTrace();
@@ -98,9 +97,9 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    public void onLoginSuccess(String token, long expiration) {
+    public void onLoginSuccess(String login, String password, long expiration) {
         submitButton.setEnabled(true);
-        propertiesManager.saveToken(token, expiration);
+        propertiesManager.saveToken(login, password, expiration);
         if (propertiesManager.hasValidToken()) {
             Toast.makeText(getBaseContext(), "Login succeed", Toast.LENGTH_LONG).show();
         }
