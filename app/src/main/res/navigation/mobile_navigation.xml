@@ -27,19 +27,29 @@
         android:id="@+id/nav_three_days"
         android:name="ru.ifmo.se.theweathertracking.android.ui.threeDays.ThreeDaysFragment"
         android:label="@string/menu_three_days"
-        tools:layout="@layout/fragment_three_days" />
+        tools:layout="@layout/fragment_three_days" >
+        <action
+            android:id="@+id/action_nav_three_days_to_graphFragmnet"
+            app:destination="@id/graphFragmnet" />
+    </fragment>
 
     <activity
         android:id="@+id/loginActivity"
         android:name="ru.ifmo.se.theweathertracking.android.LoginActivity"
         android:label="LoginActivity"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/activity_login" >
+    </activity>
 
     <activity
         android:id="@+id/signUpActivity"
         android:name="ru.ifmo.se.theweathertracking.android.SignUpActivity"
         android:label="SignUpActivity"
-        tools:layout="@layout/activity_signup" />
+        tools:layout="@layout/activity_signup" >
+    </activity>
 
-
+    <fragment
+        android:id="@+id/graphFragmnet"
+        android:name="ru.ifmo.se.theweathertracking.android.GraphFragment"
+        android:label="GraphFragment"
+        tools:layout="@layout/fragment_graph" />
 </navigation>
