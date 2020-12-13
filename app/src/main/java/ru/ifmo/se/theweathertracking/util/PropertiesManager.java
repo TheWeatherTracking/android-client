@@ -2,6 +2,9 @@ package ru.ifmo.se.theweathertracking.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Base64;
+
+import java.io.UnsupportedEncodingException;
 
 import ru.ifmo.se.theweathertracking.android.R;
 
@@ -17,7 +20,15 @@ public class PropertiesManager {
         editor = sharedPref.edit();
     }
 
-    public void saveToken(String token, long expiration) {
+    public void saveToken(String login, String password, long expiration) {
+        String uncodedToken = login + ":" + password;
+        byte[] data = new byte[0];
+        try {
+            data = uncodedToken.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String token = Base64.encodeToString(data, Base64.DEFAULT);
         editor.putString(context.getString(R.string.security_token_value), token);
         editor.putLong(context.getString(R.string.security_token_expiration), expiration);
         editor.commit();

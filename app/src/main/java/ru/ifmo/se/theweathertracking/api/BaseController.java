@@ -33,9 +33,22 @@ public class BaseController {
                 "/api/" +
                 resourcePath;
 
+        return AndroidNetworking.get(requestPath);
+
+    }
+
+    protected ANRequest.PostRequestBuilder getPostRequestWithAuth(String resourcePath) {
         String apiToken = propertiesManager.getToken();
 
-        return AndroidNetworking.get(requestPath)
+        return getPostRequest(resourcePath)
+                .addHeaders("Authorization", "Basic " + apiToken);
+
+    }
+
+    protected ANRequest.GetRequestBuilder getGetRequestWithAuth(String resourcePath) {
+        String apiToken = propertiesManager.getToken();
+
+        return getGetRequest(resourcePath)
                 .addHeaders("Authorization", "Basic " + apiToken);
 
     }

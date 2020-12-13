@@ -17,5 +17,5 @@
     <string name="security_token_value">security.token.value</string>
     <string name="security_token_expiration">security.token.expiration</string>
     <!-- Variables related to REST API -->
-    <string name="api_root_url"></string>
+    <string name="api_root_url">http://185.255.132.229:8080</string>
 </resources>

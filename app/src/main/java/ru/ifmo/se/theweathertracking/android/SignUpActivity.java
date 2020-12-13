@@ -13,11 +13,11 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ru.ifmo.se.theweathertracking.api.ProfileController;
+import ru.ifmo.se.theweathertracking.api.UsersController;
 
 public class SignUpActivity extends BaseActivity {
     private String tag = "Sign up activity";
-    private ProfileController profileController;
+    private UsersController usersController;
 
     @Override
     protected String getTag() {
@@ -49,7 +49,7 @@ public class SignUpActivity extends BaseActivity {
         loginLink = findViewById(R.id.link_login);
 
         Context ctx = getApplicationContext();
-        profileController = new ProfileController(ctx);
+        usersController = new UsersController(ctx);
 
         submitButton.setOnClickListener((View v) -> signUp());
         loginLink.setOnClickListener((View v) -> {
@@ -74,7 +74,7 @@ public class SignUpActivity extends BaseActivity {
         String passwordString = this.password.getText().toString();
         String confirmedPasswordString = confirmedPassword.getText().toString();
 
-        profileController.getLoginRequest(emailString, passwordString)
+        usersController.getLoginRequest(emailString, passwordString)
                 .getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
