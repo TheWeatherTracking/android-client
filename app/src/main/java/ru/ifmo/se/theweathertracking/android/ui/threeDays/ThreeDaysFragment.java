@@ -35,14 +35,11 @@ public class ThreeDaysFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        graphButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putIntArray("values", new int[] {50, 120, 90});
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_nav_three_days_to_graphFragmnet, bundle);
-            }
+        graphButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putIntArray("values", new int[] {50, 120, 90});
+            Navigation.findNavController(view)
+                    .navigate(R.id.action_nav_three_days_to_graphFragmnet, bundle);
         });
 
         return root;
