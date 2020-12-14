@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.androidnetworking.interfaces.OkHttpResponseListener;
+import okhttp3.Response;
 import ru.ifmo.se.theweathertracking.api.UsersController;
 
 public class SignUpActivity extends BaseActivity {
@@ -61,7 +57,7 @@ public class SignUpActivity extends BaseActivity {
 
     public void signUp() {
         if (!validate()) {
-            onSignUpFailed();
+            onSignUpFailed("Fill all the fields");
             return;
         }
         submitButton.setEnabled(false);
@@ -75,26 +71,24 @@ public class SignUpActivity extends BaseActivity {
         String confirmedPasswordString = confirmedPassword.getText().toString();
 
         usersController.getLoginRequest(emailString, passwordString)
-                .getAsJSONObject(new JSONObjectRequestListener() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    //TODO: handle signup response
-                    JSONObject entity = response.getJSONObject("Entity");
-                    onSignUpSuccess();
-                } catch (JSONException e) {
-                    onSignUpFailed();
-                    e.printStackTrace();
-                } finally {
-                    progressDialog.dismiss();
-                }
-            }
-            @Override
-            public void onError(ANError error) {
-                onSignUpFailed();
-                progressDialog.dismiss();
-            }
-        });
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        //TODO: handle sign up response
+                        if (response.isSuccessful()) {
+                            onSignUpSuccess();
+                        } else {
+                            onSignUpFailed("Sign up failed");
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        onSignUpFailed("Sign up failed");
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
     public void onSignUpSuccess() {
@@ -103,8 +97,8 @@ public class SignUpActivity extends BaseActivity {
         finish();
     }
 
-    public void onSignUpFailed() {
-        Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+    public void onSignUpFailed(String message) {
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
         submitButton.setEnabled(true);
     }
 
@@ -130,7 +124,7 @@ public class SignUpActivity extends BaseActivity {
         }
 
         if (confirmedPasswordText.isEmpty() || confirmedPasswordText.length() < 4 || confirmedPasswordText.length() > 10 || !(confirmedPasswordText.equals(passwordText))) {
-            confirmedPassword.setError("Password do not match");
+            confirmedPassword.setError("Passwords do not match");
             valid = false;
         } else {
             confirmedPassword.setError(null);

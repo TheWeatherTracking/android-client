@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import ru.ifmo.se.theweathertracking.android.R;
+import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
 
 public class ThreeDaysFragment extends Fragment {
 
@@ -39,7 +40,7 @@ public class ThreeDaysFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putIntArray("values", new int[] {50, 120, 90});
+                bundle.putString("type", GraphType.THREE_DAYS.name());
                 Navigation.findNavController(view)
                         .navigate(R.id.action_nav_three_days_to_graphFragmnet, bundle);
             }
