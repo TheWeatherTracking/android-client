@@ -7,10 +7,20 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="menu_devices">Выбрать устройство</string>
     <string name="menu_now">Погода сейчас</string>
     <string name="menu_today">Погода сегодня</string>
     <string name="menu_yesterday">Погода вчера</string>
     <string name="menu_three_days">Погода последние три дня</string>
+
+    <string name="tab_item_data">Данные</string>
+    <string name="tab_item_graph">Графики</string>
+
+    <string name="choose_device">Выберите устройство:</string>
+    <string name="device1">Устройство 1</string>
+    <string name="device2">Устройство 2</string>
+    <string name="device3">Устройство 3</string>
+
 
     <!-- Key names for properties stored in shared properties -->
     <string name="security_bucket_name">security.preferences.bucket</string>
