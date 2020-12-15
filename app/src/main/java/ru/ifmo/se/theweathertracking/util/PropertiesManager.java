@@ -41,6 +41,11 @@ public class PropertiesManager {
         return device != null && !device.equals("");
     }
 
+    public String getLogin() {
+        String result = sharedPref.getString(context.getString(R.string.security_login_value), null);
+        return result;
+    }
+
     public void saveToken(String login, String password, long expiration) {
         String uncodedToken = login + ":" + password;
         byte[] data = new byte[0];
@@ -52,12 +57,14 @@ public class PropertiesManager {
         String token = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
         editor.putString(context.getString(R.string.security_token_value), token);
         editor.putLong(context.getString(R.string.security_token_expiration), expiration);
+        editor.putString(context.getString(R.string.security_login_value), login);
         editor.apply();
     }
 
     public void removeToken() {
         editor.remove(context.getString(R.string.security_token_value));
         editor.remove(context.getString(R.string.security_token_expiration));
+        editor.remove(context.getString(R.string.security_login_value));
         editor.apply();
     }
 

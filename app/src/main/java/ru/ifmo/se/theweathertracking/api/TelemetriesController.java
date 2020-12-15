@@ -16,13 +16,13 @@ import java.util.Date;
 // api/telemetries
 public class TelemetriesController extends BaseController {
     private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
-    private Integer elementsCount;
+    private final long dayInMillis = 24*60*60*1000;
 
     public TelemetriesController(Context ctx) { super(ctx); }
 
     public ANRequest getTodayTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
-        String date = dateFormater.format(new Date(System.currentTimeMillis() - 86400000));
+        String date = dateFormater.format(new Date(System.currentTimeMillis() - dayInMillis));
         String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, date, device);
 
@@ -32,7 +32,7 @@ public class TelemetriesController extends BaseController {
 
     public ANRequest getYesterdayTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
-        Date date = new Date(System.currentTimeMillis() - 2*86400000);
+        Date date = new Date(System.currentTimeMillis() - 2*dayInMillis);
         String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, dateFormater.format(date), device);
 
@@ -42,7 +42,7 @@ public class TelemetriesController extends BaseController {
 
     public ANRequest getThreeDaysTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
-        Date date = new Date(System.currentTimeMillis() - 3*86400000);
+        Date date = new Date(System.currentTimeMillis() - 3*dayInMillis);
         String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, dateFormater.format(date), device);
 

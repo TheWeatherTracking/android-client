@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
 import ru.ifmo.se.theweathertracking.android.TelemetryFragment;
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
+import ru.ifmo.se.theweathertracking.android.ui.FragmentType;
 import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 
 public class ThreeDaysFragment extends TelemetryFragment {
@@ -47,7 +47,7 @@ public class ThreeDaysFragment extends TelemetryFragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("type", GraphType.THREE_DAYS.name());
+                bundle.putString("type", FragmentType.THREE_DAYS.name());
                 Navigation.findNavController(view)
                         .navigate(R.id.action_nav_three_days_to_graphFragmnet, bundle);
             }

@@ -15,13 +15,14 @@ import java.util.ArrayList;
 
 import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
+import ru.ifmo.se.theweathertracking.android.ui.FragmentType;
 import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 import ru.ifmo.se.theweathertracking.api.model.TelemetryDataSetViewModel;
 
 public class GraphFragment extends Fragment {
     private TelemetriesController telemetriesController;
     private GraphBuilder graphBuilder;
-    private GraphType graphType;
+    private FragmentType fragmentType;
     private String dateFormat;
     private TelemetryDataSetViewModel viewModel;
 
@@ -35,15 +36,14 @@ public class GraphFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_graph, container, false);
         telemetriesController =  new TelemetriesController(getContext());
         graphBuilder = new GraphBuilder();
-        graphType = GraphType.valueOf(getArguments().getString("type", "TODAY"));
-        viewModel = new TelemetryDataSetViewModel(graphType);
+        fragmentType = FragmentType.valueOf(getArguments().getString("type", "TODAY"));
 
         temperatureChart = (BarChart) root.findViewById(R.id.temp_chart);
         pressureChart = (BarChart) root.findViewById(R.id.pres_chart);
         moistureChart = (BarChart) root.findViewById(R.id.moist_chart);
         luminosityChart = (BarChart) root.findViewById(R.id.luminosity_chart);
 
-        switch (graphType){
+        switch (fragmentType){
             case YESTERDAY:
                 dateFormat = "HH:mm";
                 viewModel = ((MainActivity)getActivity()).telemetryViewModel.YesterdayViewModel;
@@ -57,13 +57,13 @@ public class GraphFragment extends Fragment {
                 dateFormat = "HH:mm";
                 viewModel = ((MainActivity)getActivity()).telemetryViewModel.TodayViewModel;
         }
-        OnGetDataSuccess(viewModel);
+
+        DrawGraphs(viewModel);
 
         return root;
     }
 
-    public void OnGetDataSuccess(TelemetryDataSetViewModel viewModel) {
-        // draw graphs
+    public void DrawGraphs(TelemetryDataSetViewModel viewModel) {
         Pair<ArrayList<String>, ArrayList<Integer>> temp = viewModel.getTemperatures(dateFormat);
         graphBuilder.fillBarChart(temperatureChart, "Temperature", temp.first, temp.second);
 

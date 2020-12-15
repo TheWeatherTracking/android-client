@@ -63,7 +63,7 @@ public class DevicesFragment extends DataFragment {
     }
 
     @Override
-    protected void processResponse(JSONObject response) {
+    protected void parseResponse(JSONObject response) {
         //parse response
         try {
             JSONArray jsonArray = response
@@ -97,7 +97,7 @@ public class DevicesFragment extends DataFragment {
 
     @Override
     protected void onGetDataSuccess() {
-        //this method is called when all data were received from sever and saved in telemetryDataSetViewModel
+        //this method is called when all data were received from sever and saved in deviceModels
     }
 
     @Override

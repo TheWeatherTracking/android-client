@@ -22,7 +22,7 @@ public abstract class DataFragment extends Fragment {
         request.getAsJSONObject(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {
-                processResponse(response);
+                parseResponse(response);
                 onGetDataSuccess();
                 progressDialog.dismiss();
             }
@@ -39,7 +39,7 @@ public abstract class DataFragment extends Fragment {
         });
     }
 
-    protected abstract void processResponse(JSONObject response);
+    protected abstract void parseResponse(JSONObject response);
 
     protected abstract ANRequest getRequest();
 

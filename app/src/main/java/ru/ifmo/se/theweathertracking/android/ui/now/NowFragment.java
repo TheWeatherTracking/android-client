@@ -50,7 +50,7 @@ public class NowFragment extends DataFragment {
     }
 
     @Override
-    protected void processResponse(JSONObject response) {
+    protected void parseResponse(JSONObject response) {
         //parse response
         telemetryModel = new TelemetryModel(response);
     }
@@ -68,7 +68,7 @@ public class NowFragment extends DataFragment {
 
     @Override
     protected void onGetDataSuccess() {
-        //this method is called when all data were received from sever and saved in telemetryDataSetViewModel
+        //this method is called when all data were received from sever and saved in telemetryModel
     }
 
     @Override

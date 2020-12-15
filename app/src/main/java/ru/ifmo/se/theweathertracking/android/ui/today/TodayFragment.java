@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
 import ru.ifmo.se.theweathertracking.android.TelemetryFragment;
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
+import ru.ifmo.se.theweathertracking.android.ui.FragmentType;
 import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 
 public class TodayFragment extends TelemetryFragment {
@@ -49,7 +49,7 @@ public class TodayFragment extends TelemetryFragment {
         graphButton = root.findViewById(R.id.btn_graph);
         graphButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putString("type", GraphType.TODAY.name());
+            bundle.putString("type", FragmentType.TODAY.name());
             Navigation.findNavController(view)
                     .navigate(R.id.action_nav_today_to_graphFragmnet, bundle);
         });

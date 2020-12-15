@@ -1,6 +1,6 @@
 package ru.ifmo.se.theweathertracking.api.model;
 
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
+import ru.ifmo.se.theweathertracking.android.ui.FragmentType;
 
 public class TelemetryViewModel {
     public TelemetryDataSetViewModel TodayViewModel;
@@ -9,8 +9,8 @@ public class TelemetryViewModel {
 
     public TelemetryViewModel()
     {
-        TodayViewModel = new TelemetryDataSetViewModel(GraphType.TODAY);
-        YesterdayViewModel = new TelemetryDataSetViewModel(GraphType.YESTERDAY);
-        ThreeDaysViewModel = new TelemetryDataSetViewModel(GraphType.THREE_DAYS);
+        TodayViewModel = new TelemetryDataSetViewModel(FragmentType.TODAY);
+        YesterdayViewModel = new TelemetryDataSetViewModel(FragmentType.YESTERDAY);
+        ThreeDaysViewModel = new TelemetryDataSetViewModel(FragmentType.THREE_DAYS);
     }
 }
