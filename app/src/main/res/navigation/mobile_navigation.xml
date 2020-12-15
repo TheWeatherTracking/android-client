@@ -15,13 +15,21 @@
         android:id="@+id/nav_today"
         android:name="ru.ifmo.se.theweathertracking.android.ui.today.TodayFragment"
         android:label="@string/menu_today"
-        tools:layout="@layout/fragment_today" />
+        tools:layout="@layout/fragment_today" >
+        <action
+            android:id="@+id/action_nav_today_to_graphFragmnet"
+            app:destination="@id/graphFragmnet" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_yesterday"
         android:name="ru.ifmo.se.theweathertracking.android.ui.yesterday.YesterdayFragment"
         android:label="@string/menu_yesterday"
-        tools:layout="@layout/fragment_yesterday" />
+        tools:layout="@layout/fragment_yesterday" >
+        <action
+            android:id="@+id/action_nav_yesterday_to_graphFragmnet"
+            app:destination="@id/graphFragmnet" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_three_days"
@@ -32,6 +40,12 @@
             android:id="@+id/action_nav_three_days_to_graphFragmnet"
             app:destination="@id/graphFragmnet" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_devices"
+        android:name="ru.ifmo.se.theweathertracking.android.ui.devices.DevicesFragment"
+        android:label="@string/menu_devices"
+        tools:layout="@layout/fragment_devices" />
 
     <activity
         android:id="@+id/loginActivity"
