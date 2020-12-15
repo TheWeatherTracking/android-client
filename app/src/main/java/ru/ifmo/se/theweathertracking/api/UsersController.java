@@ -17,15 +17,16 @@ public class UsersController extends BaseController {
     }
 
     public ANRequest getLoginRequest(String userName) {
-        String path = "/users/search/getByLogin?login=" + userName;
+        String path = "users/search/getByLogin?login=" + userName;
         return getGetRequestWithAuth(path)
                 .build();
     }
 
     // POST api/users
     public ANRequest getSignUpRequest(String userName, String password) {
-        return getPostRequest("/users")
-                .addJSONObjectBody(createUserBody(userName, password))
+        return getPostRequestWithFormData("users")
+                .addUrlEncodeFormBodyParameter("login", userName)
+                .addUrlEncodeFormBodyParameter("password", password)
                 .build();
     }
 

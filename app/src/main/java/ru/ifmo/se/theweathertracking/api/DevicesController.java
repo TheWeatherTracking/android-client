@@ -10,7 +10,7 @@ public class DevicesController extends BaseController {
     }
 
     public ANRequest getDevices() {
-        String path = "/devices";
+        String path = "devices";
         return getGetRequestWithAuth(path)
                 .build();
     }
