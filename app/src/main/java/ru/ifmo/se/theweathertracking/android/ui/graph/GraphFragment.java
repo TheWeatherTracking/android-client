@@ -1,5 +1,6 @@
 package ru.ifmo.se.theweathertracking.android.ui.graph;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -65,15 +66,15 @@ public class GraphFragment extends Fragment {
 
     public void DrawGraphs(TelemetryDataSetViewModel viewModel) {
         Pair<ArrayList<String>, ArrayList<Integer>> temp = viewModel.getTemperatures(dateFormat);
-        graphBuilder.fillBarChart(temperatureChart, "Temperature", temp.first, temp.second);
+        graphBuilder.fillBarChart(temperatureChart, "Temperature", temp.first, temp.second, R.color.temperature_graph);
 
         Pair<ArrayList<String>, ArrayList<Integer>> pres = viewModel.getPressures(dateFormat);
-        graphBuilder.fillBarChart(pressureChart, "Pressure", pres.first, pres.second);
+        graphBuilder.fillBarChart(pressureChart, "Pressure", pres.first, pres.second, R.color.pressure_graph);
 
         Pair<ArrayList<String>, ArrayList<Integer>> moist = viewModel.getMoisture(dateFormat);
-        graphBuilder.fillBarChart(moistureChart, "Moisture", moist.first, moist.second);
+        graphBuilder.fillBarChart(moistureChart, "Moisture", moist.first, moist.second, R.color.moisture_graph);
 
         Pair<ArrayList<String>, ArrayList<Integer>> luminos = viewModel.getLuminosities(dateFormat);
-        graphBuilder.fillBarChart(luminosityChart, "Luminosity", luminos.first, luminos.second);
+        graphBuilder.fillBarChart(luminosityChart, "Luminosity", luminos.first, luminos.second, R.color.luminosity_graph);
     }
 }

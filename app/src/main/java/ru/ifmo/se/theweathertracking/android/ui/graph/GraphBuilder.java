@@ -8,12 +8,13 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class GraphBuilder {
-    public void fillBarChart(BarChart chart, String graphLabel, Collection<String> dataLabels, Collection<Integer> dataValues)
+    public void fillBarChart(BarChart chart, String graphLabel, Collection<String> dataLabels, Collection<Integer> dataValues, int color)
     {
         chart.getDescription().setEnabled(false);
         chart.setPinchZoom(false);
@@ -32,6 +33,7 @@ public class GraphBuilder {
         }
 
         BarDataSet dataSet = new BarDataSet(values, graphLabel);
+        dataSet.setColor(color, 255);
         BarData data = new BarData(dataSet);
         chart.setData(data);
         chart.animateXY(2000, 2000);

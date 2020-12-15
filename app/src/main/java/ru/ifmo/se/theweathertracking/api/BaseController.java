@@ -18,6 +18,15 @@ public class BaseController {
         propertiesManager = new PropertiesManager(ctx);
     }
 
+    protected ANRequest.PostRequestBuilder getPostRequestWithFormData(String resourcePath) {
+        String requestPath = context.getString(R.string.api_root_url) +
+                "/api/" +
+                resourcePath;
+
+        return AndroidNetworking.post(requestPath)
+                .setContentType("application/x-www-form-urlencoded");
+    }
+
     protected ANRequest.PostRequestBuilder getPostRequest(String resourcePath) {
         String requestPath = context.getString(R.string.api_root_url) +
                 "/api/" +
@@ -25,7 +34,6 @@ public class BaseController {
 
         return AndroidNetworking.post(requestPath)
                 .setContentType("application/json");
-
     }
 
     protected ANRequest.GetRequestBuilder getGetRequest(String resourcePath) {

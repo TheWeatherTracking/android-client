@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+
+import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import okhttp3.Response;
@@ -70,11 +72,10 @@ public class SignUpActivity extends BaseActivity {
         String passwordString = this.password.getText().toString();
         String confirmedPasswordString = confirmedPassword.getText().toString();
 
-        usersController.getSignUpRequest(emailString, passwordString)
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
+        ANRequest request = usersController.getSignUpRequest(emailString, passwordString);
+        request.getAsOkHttpResponse(new OkHttpResponseListener() {
                     @Override
                     public void onResponse(Response response) {
-                        //TODO: handle sign up response
                         if (response.isSuccessful()) {
                             onSignUpSuccess();
                         } else {
@@ -92,6 +93,7 @@ public class SignUpActivity extends BaseActivity {
     }
 
     public void onSignUpSuccess() {
+        Toast.makeText(getBaseContext(), "Sign up succeeded", Toast.LENGTH_LONG).show();
         submitButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();

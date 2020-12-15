@@ -23,7 +23,7 @@ public class TelemetriesController extends BaseController {
     public ANRequest getTodayTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
         String date = dateFormater.format(new Date(System.currentTimeMillis() - dayInMillis));
-        String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
+        String format = "telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, date, device);
 
         return getGetRequestWithAuth(path)
@@ -33,7 +33,7 @@ public class TelemetriesController extends BaseController {
     public ANRequest getYesterdayTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
         Date date = new Date(System.currentTimeMillis() - 2*dayInMillis);
-        String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
+        String format = "telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, dateFormater.format(date), device);
 
         return getGetRequestWithAuth(path)
@@ -43,7 +43,7 @@ public class TelemetriesController extends BaseController {
     public ANRequest getThreeDaysTelemetry(int size, int page) {
         String device = propertiesManager.getDevice();
         Date date = new Date(System.currentTimeMillis() - 3*dayInMillis);
-        String format = "/telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
+        String format = "telemetries/search/getAfterByDevice?page=%d&size=%d&sort=tmstamp&timestamp=%s&device_signature=%s";
         String path = String.format(format, page, size, dateFormater.format(date), device);
 
         return getGetRequestWithAuth(path)
@@ -52,7 +52,7 @@ public class TelemetriesController extends BaseController {
 
     public ANRequest getCurrentTelemetry() {
         String device = propertiesManager.getDevice();
-        String format = "/getCurrentByDevice?device_signature=%s";
+        String format = "telemetries/search/getCurrentByDevice?device_signature=%s";
         String path = String.format(format, device);
         return getGetRequestWithAuth(path)
                 .build();
