@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/devices"
@@ -33,6 +34,7 @@
             tools:ignore="MissingConstraints" />
 
         <RadioGroup
+            android:id="@+id/radio_group"
             android:layout_width="293dp"
             android:layout_height="144dp"
             android:layout_marginStart="60dp"
@@ -47,22 +49,22 @@
             tools:ignore="MissingConstraints">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioButton1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/device1" />
+                android:layout_height="wrap_content"/>
+<!--                android:text="@string/device1" -->
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/device2" />
+                android:layout_height="wrap_content"/>
+<!--                android:text="@string/device2" -->
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/device3" />
+                android:layout_height="wrap_content"/>
+<!--                android:text="@string/device3" -->
         </RadioGroup>
 
     </LinearLayout>

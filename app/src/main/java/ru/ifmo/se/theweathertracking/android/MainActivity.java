@@ -70,11 +70,9 @@ public class MainActivity extends BaseActivity {
         }
 
         LayoutInflater inflater = getLayoutInflater();
-       // @SuppressLint("CutPasteId") LinearLayout linearLayout = findViewById(R.id.nav_view);
         View view = inflater.inflate(R.layout.nav_header_main, navigationView, true);
         TextView emailText = view.findViewById(R.id.emailTextView);
         emailText.setText(propertiesManager.getLogin());
-       // drawer.addView(view);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package ru.ifmo.se.theweathertracking.android.ui.devices;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.LogRecord;
 
 import ru.ifmo.se.theweathertracking.android.DataFragment;
 import ru.ifmo.se.theweathertracking.android.R;
@@ -33,19 +37,16 @@ public class DevicesFragment extends DataFragment {
     private PropertiesManager propertiesManager;
     private ArrayList<DeviceModel> deviceModels;
     private DevicesViewModel devicesViewModel;
+    private ArrayList<RadioButton> radioButtons;
+    private RadioGroup radioGroup;
+    private View root;
 
+    @SuppressLint("NonConstantResourceId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         devicesViewModel =
                 new ViewModelProvider(this).get(DevicesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_devices, container, false);
-//        final TextView textView = root.findViewById(R.id.text_devices);
-//        devicesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+        root = inflater.inflate(R.layout.fragment_devices, container, false);
 
         propertiesManager = new PropertiesManager(getContext());
         devicesController = new DevicesController(getContext());
@@ -98,6 +99,31 @@ public class DevicesFragment extends DataFragment {
     @Override
     protected void onGetDataSuccess() {
         //this method is called when all data were received from sever and saved in deviceModels
+        radioGroup = root.findViewById(R.id.radio_group);
+
+        RadioButton radioButton1 = root.findViewById(R.id.radioButton1);
+        radioButton1.setText(deviceModels.get(0).Name);
+
+        RadioButton radioButton2 = root.findViewById(R.id.radioButton2);
+        radioButton2.setText(deviceModels.get(1).Name);
+
+        RadioButton radioButton3 = root.findViewById(R.id.radioButton3);
+        radioButton3.setText(deviceModels.get(2).Name);
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch(checkedId) {
+                case R.id.radioButton1:
+                    SaveChosenDevice(deviceModels.get(0).Name);
+                    break;
+                case R.id.radioButton2:
+                    SaveChosenDevice(deviceModels.get(1).Name);
+                    break;
+                case R.id.radioButton3:
+                    SaveChosenDevice(deviceModels.get(2).Name);
+                    break;
+            }
+        });
+
     }
 
     @Override
