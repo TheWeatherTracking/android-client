@@ -7,13 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -24,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 import ru.ifmo.se.theweathertracking.android.DataFragment;
 import ru.ifmo.se.theweathertracking.android.R;
@@ -36,16 +31,11 @@ public class DevicesFragment extends DataFragment {
     private DevicesController devicesController;
     private PropertiesManager propertiesManager;
     private ArrayList<DeviceModel> deviceModels;
-    private DevicesViewModel devicesViewModel;
-    private ArrayList<RadioButton> radioButtons;
-    private RadioGroup radioGroup;
     private View root;
 
     @SuppressLint("NonConstantResourceId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        devicesViewModel =
-                new ViewModelProvider(this).get(DevicesViewModel.class);
         root = inflater.inflate(R.layout.fragment_devices, container, false);
 
         propertiesManager = new PropertiesManager(getContext());
@@ -96,10 +86,11 @@ public class DevicesFragment extends DataFragment {
                 .navigate(R.id.action_nav_devices_to_loginActivity);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onGetDataSuccess() {
         //this method is called when all data were received from sever and saved in deviceModels
-        radioGroup = root.findViewById(R.id.radio_group);
+        RadioGroup radioGroup = root.findViewById(R.id.radio_group);
 
         RadioButton radioButton1 = root.findViewById(R.id.radioButton1);
         radioButton1.setText(deviceModels.get(0).Name);

@@ -64,59 +64,6 @@
 
         </TableRow>
 
-        <!--        <TableRow-->
-        <!--            android:layout_marginTop="20dp">-->
-        <!--            <TextView-->
-        <!--                android:id="@+id/tmstamp_value_today"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:text="@string/tmstamp"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/temperature_value_today"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:text="value"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/pressure_value_today"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:text="value"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/moisture_value_today"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:text="value"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/luminosity_value_today"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="1"-->
-        <!--                android:text="value"-->
-        <!--                android:textAlignment="center"-->
-        <!--                app:layout_constraintStart_toStartOf="parent" />-->
-        <!--        </TableRow>-->
-
     </TableLayout>
 
     <Button

@@ -9,9 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -27,14 +24,11 @@ import ru.ifmo.se.theweathertracking.api.model.TelemetryModel;
 public class NowFragment extends DataFragment {
     private TelemetriesController telemetriesController;
     private TelemetryModel telemetryModel;
-    private NowViewModel nowViewModel;
     private View root;
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        nowViewModel =
-                new ViewModelProvider(this).get(NowViewModel.class);
         root = inflater.inflate(R.layout.fragment_now, container, false);
 
         telemetriesController = new TelemetriesController(getContext());

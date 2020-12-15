@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -34,14 +32,11 @@ import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 public class YesterdayFragment extends TelemetryFragment {
     private TelemetriesController telemetriesController;
 
-    private YesterdayViewModel yesterdayViewModel;
     private Button graphButton;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        yesterdayViewModel =
-                new ViewModelProvider(this).get(YesterdayViewModel.class);
         root = inflater.inflate(R.layout.fragment_yesterday, container, false);
 
         graphButton = root.findViewById(R.id.btn_graph);
@@ -52,7 +47,7 @@ public class YesterdayFragment extends TelemetryFragment {
                     .navigate(R.id.action_nav_yesterday_to_graphFragmnet, bundle);
         });
 
-        telemetryDataSetViewModel = ((MainActivity)getActivity()).telemetryViewModel.YesterdayViewModel;
+        telemetryDataSetViewModel = ((MainActivity) requireActivity()).telemetryViewModel.YesterdayViewModel;
         telemetriesController = new TelemetriesController(getContext());
 
         //requests to get data from server
@@ -73,44 +68,50 @@ public class YesterdayFragment extends TelemetryFragment {
             graphButton.setEnabled(true);
             Pair<ArrayList<String>, ArrayList<Integer>> temp = telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm");
 
-            TableLayout tableLayout = root.findViewById(R.id.table_yesterday);
+            TableLayout table = root.findViewById(R.id.table_yesterday);
+            table.setStretchAllColumns(true);
+            table.setShrinkAllColumns(true);
 
             for (int i = 0; i < telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm").first.size(); i++) {
                 TextView temperatureValueTextView = new TextView(getContext());
                 temperatureValueTextView.setText(telemetryDataSetViewModel
                         .getTemperatures("dd/MM HH:mm").second.get(i).toString() + "°C");
-                temperatureValueTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                temperatureValueTextView.setGravity(Gravity.CENTER);
 
                 TextView pressureValueTextView = new TextView(getContext());
                 pressureValueTextView.setText(telemetryDataSetViewModel
                         .getPressures("dd/MM HH:mm").second.get(i).toString() + " mm Hg");
-                pressureValueTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                pressureValueTextView.setGravity(Gravity.CENTER);
 
                 TextView moistureValueTextView = new TextView(getContext());
                 moistureValueTextView.setText(telemetryDataSetViewModel
                         .getMoisture("dd/MM HH:mm").second.get(i).toString() + " %");
-                moistureValueTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                moistureValueTextView.setGravity(Gravity.CENTER);
 
                 TextView luminosityValueTextView = new TextView(getContext());
                 luminosityValueTextView.setText(telemetryDataSetViewModel
                         .getLuminosities("dd/MM HH:mm").second.get(i).toString() + " lx");
-                luminosityValueTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                luminosityValueTextView.setGravity(Gravity.CENTER);
 
                 TextView tmstampValueTextView = new TextView(getContext());
                 tmstampValueTextView.setText(telemetryDataSetViewModel
                         .getTemperatures("dd/MM HH:mm").first.get(i));
-                tmstampValueTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                tmstampValueTextView.setGravity(Gravity.CENTER);
 
                 TableRow tableRow = new TableRow(getContext());
+                TableRow.LayoutParams params = new TableRow.LayoutParams();
+                params.span = 6;
+                params.topMargin = 20;
 
-                tableRow.addView(tmstampValueTextView);
-                tableRow.addView(temperatureValueTextView);
-                tableRow.addView(pressureValueTextView);
-                tableRow.addView(moistureValueTextView);
-                tableRow.addView(luminosityValueTextView);
+                tableRow.addView(tmstampValueTextView, params);
+                tableRow.addView(temperatureValueTextView, params);
+                tableRow.addView(pressureValueTextView, params);
+                tableRow.addView(moistureValueTextView, params);
+                tableRow.addView(luminosityValueTextView, params);
 
-                tableLayout.addView(tableRow);
-        }
+                table.addView(tableRow);
+
+            }
         }
     }
 
