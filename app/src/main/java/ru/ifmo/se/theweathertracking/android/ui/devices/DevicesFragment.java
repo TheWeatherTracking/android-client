@@ -1,4 +1,4 @@
-package ru.ifmo.se.theweathertracking.android.ui.now;
+package ru.ifmo.se.theweathertracking.android.ui.devices;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ru.ifmo.se.theweathertracking.android.R;
 
-public class NowFragment extends Fragment {
+public class DevicesFragment extends Fragment {
 
-    private NowViewModel nowViewModel;
+    private DevicesViewModel devicesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        nowViewModel =
-                new ViewModelProvider(this).get(NowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_now, container, false);
-//        final TextView textView = root.findViewById(R.id.text_now);
-//        nowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        devicesViewModel =
+                new ViewModelProvider(this).get(DevicesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_devices, container, false);
+//        final TextView textView = root.findViewById(R.id.text_devices);
+//        devicesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
 //            public void onChanged(@Nullable String s) {
 //                textView.setText(s);

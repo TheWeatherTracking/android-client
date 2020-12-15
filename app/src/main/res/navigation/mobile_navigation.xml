@@ -54,12 +54,11 @@
             app:destination="@id/loginActivity" />
     </fragment>
 
-    <activity
-        android:id="@+id/deviceActivity"
-        android:name="ru.ifmo.se.theweathertracking.android.DeviceActivity"
-        android:label="DeviceActivity"
-        tools:layout="@layout/activity_device" >
-    </activity>
+    <fragment
+        android:id="@+id/nav_devices"
+        android:name="ru.ifmo.se.theweathertracking.android.ui.devices.DevicesFragment"
+        android:label="@string/menu_devices"
+        tools:layout="@layout/fragment_devices" />
 
     <activity
         android:id="@+id/loginActivity"

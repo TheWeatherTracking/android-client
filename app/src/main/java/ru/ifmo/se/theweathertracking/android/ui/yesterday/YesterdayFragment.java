@@ -1,53 +1,52 @@
 package ru.ifmo.se.theweathertracking.android.ui.yesterday;
 
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.androidnetworking.common.ANRequest;
-
-import java.util.ArrayList;
-
-import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
-import ru.ifmo.se.theweathertracking.android.TelemetryFragment;
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
-import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 
 public class YesterdayFragment extends TelemetryFragment {
     private TelemetriesController telemetriesController;
-    Button graphButton;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    private YesterdayViewModel yesterdayViewModel;
+    private Button graphButton;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        yesterdayViewModel =
+                new ViewModelProvider(this).get(YesterdayViewModel.class);
         View root = inflater.inflate(R.layout.fragment_yesterday, container, false);
-
-        graphButton = root.findViewById(R.id.btn_graph);
-        graphButton.setOnClickListener(new View.OnClickListener() {
+        final TextView textView = root.findViewById(R.id.text_yesterday);
+        yesterdayViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("type", GraphType.YESTERDAY.name());
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_nav_yesterday_to_graphFragmnet, bundle);
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
             }
         });
 
         telemetryDataSetViewModel = ((MainActivity)getActivity()).telemetryViewModel.YesterdayViewModel;
         telemetriesController = new TelemetriesController(getContext());
+        graphButton = root.findViewById(R.id.btn_graph);
 
         //requests to get data from server
         loadTelemetryData();
+        graphButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putIntArray("values", new int[] {50, 120, 90});
+            Navigation.findNavController(view)
+                    .navigate(R.id.action_nav_yesterday_to_graphFragmnet, bundle);
+        });
 
         return root;
     }

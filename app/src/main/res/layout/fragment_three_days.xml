@@ -10,12 +10,14 @@
         android:id="@+id/btn_graph"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
-        android:text="Show graph"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:insetBottom="0dp"
+        android:text="@string/graph_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/text_three_days"
@@ -24,21 +26,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
         android:gravity="center_horizontal"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/three_days_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="122dp"
-        tools:layout_editor_absoluteY="192dp">
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

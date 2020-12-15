@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.yesterday.YesterdayFragment">
 
-    <Button
-        android:id="@+id/btn_graph"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
-        android:text="Show graph"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/text_yesterday"
         android:layout_width="match_parent"
@@ -32,11 +21,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_horizontal" />
 
-    <LinearLayout
-        android:id="@+id/yesterdayLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/btn_graph"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:insetBottom="0dp"
+        android:text="@string/graph_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
