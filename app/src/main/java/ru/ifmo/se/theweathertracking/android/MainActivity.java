@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
+import ru.ifmo.se.theweathertracking.api.model.TelemetryViewModel;
 import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 
 public class MainActivity extends BaseActivity {
@@ -22,6 +23,7 @@ public class MainActivity extends BaseActivity {
     private final String tag = "Main activity";
     private PropertiesManager propertiesManager;
     private AppBarConfiguration mAppBarConfiguration;
+    public TelemetryViewModel telemetryViewModel;
 
     @Override
     protected String getTag() {
@@ -56,10 +58,14 @@ public class MainActivity extends BaseActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        telemetryViewModel = new TelemetryViewModel();
         propertiesManager = new PropertiesManager(getApplicationContext());
         if (!propertiesManager.hasValidToken()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+        }
+        if (!propertiesManager.hasDevice()) {
+            //TODO: navigate to devices
         }
     }
 

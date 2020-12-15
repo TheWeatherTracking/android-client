@@ -1,20 +1,30 @@
 package ru.ifmo.se.theweathertracking.android.ui.today;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.androidnetworking.common.ANRequest;
+
+import java.util.ArrayList;
+
+import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
+import ru.ifmo.se.theweathertracking.android.TelemetryFragment;
+import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
+import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 
 public class TodayFragment extends TelemetryFragment {
     private TelemetriesController telemetriesController;
@@ -36,18 +46,19 @@ public class TodayFragment extends TelemetryFragment {
             }
         });
 
-        telemetriesController = new TelemetriesController(getContext());
-        telemetryDataSetViewModel = ((MainActivity)getActivity()).telemetryViewModel.TodayViewModel;
         graphButton = root.findViewById(R.id.btn_graph);
-
-        //requests to get data from server
-        loadTelemetryData();
         graphButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putIntArray("values", new int[] {50, 120, 90});
+            bundle.putString("type", GraphType.TODAY.name());
             Navigation.findNavController(view)
                     .navigate(R.id.action_nav_today_to_graphFragmnet, bundle);
         });
+
+        telemetriesController = new TelemetriesController(getContext());
+        telemetryDataSetViewModel = ((MainActivity)getActivity()).telemetryViewModel.TodayViewModel;
+
+        //requests to get data from server
+        loadTelemetryData();
 
         return root;
     }
@@ -60,14 +71,7 @@ public class TodayFragment extends TelemetryFragment {
             graphButton.setEnabled(false);
         } else {
             graphButton.setEnabled(true);
-            LinearLayout layout = (LinearLayout) getView().findViewById(R.id.today_layout);
-            Pair<ArrayList<String>, ArrayList<Integer>> temp = telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm");
-
-            for (int i=0; i<temp.first.size(); i++){
-                TextView textView = new TextView(getContext());
-                textView.setText(temp.first.get(i) + " " + temp.second.get(i));
-                layout.addView(textView);
-            }
+            Pair<ArrayList<String>, ArrayList<Integer>> temperatures = telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm");
         }
     }
 

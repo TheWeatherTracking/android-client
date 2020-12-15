@@ -58,7 +58,11 @@
         android:id="@+id/nav_devices"
         android:name="ru.ifmo.se.theweathertracking.android.ui.devices.DevicesFragment"
         android:label="@string/menu_devices"
-        tools:layout="@layout/fragment_devices" />
+        tools:layout="@layout/fragment_devices" >
+        <action
+            android:id="@+id/action_nav_devices_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
 
     <activity
         android:id="@+id/loginActivity"

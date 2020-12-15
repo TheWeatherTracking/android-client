@@ -6,12 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -32,20 +28,21 @@ public class ThreeDaysFragment extends TelemetryFragment {
     private ThreeDaysViewModel threeDaysViewModel;
     private Button graphButton;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         threeDaysViewModel =
                 new ViewModelProvider(this).get(ThreeDaysViewModel.class);
         View root = inflater.inflate(R.layout.fragment_three_days, container, false);
         final TextView textView = root.findViewById(R.id.text_three_days);
-        graphButton = root.findViewById(R.id.btn_graph);
 
         threeDaysViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) {
+            public void onChanged(String s) {
                 textView.setText(s);
             }
         });
+
+        graphButton = root.findViewById(R.id.btn_graph);
         graphButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,14 +70,7 @@ public class ThreeDaysFragment extends TelemetryFragment {
             graphButton.setEnabled(false);
         } else {
             graphButton.setEnabled(true);
-            LinearLayout layout = (LinearLayout) getView().findViewById(R.id.three_days_layout);
             Pair<ArrayList<String>, ArrayList<Integer>> temp = telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm");
-
-            for (int i=0; i<temp.first.size(); i++){
-                TextView textView = new TextView(getContext());
-                textView.setText(temp.first.get(i) + " " + temp.second.get(i));
-                layout.addView(textView);
-            }
         }
     }
 
