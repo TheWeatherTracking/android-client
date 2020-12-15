@@ -1,4 +1,4 @@
-package ru.ifmo.se.theweathertracking.android.ui.graph;
+package ru.ifmo.se.theweathertracking.api.model;
 
 import android.util.Pair;
 
@@ -9,11 +9,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
 import ru.ifmo.se.theweathertracking.api.model.TelemetryModel;
 
-public class GraphViewModel {
+public class TelemetryDataSetViewModel {
     private Map<Date, Integer> temperatures;
     private Map<Date, Integer> pressures;
     private Map<Date, Integer> moisture;
@@ -21,7 +21,7 @@ public class GraphViewModel {
     private GraphType graphType;
     private int counter;
 
-    public GraphViewModel(GraphType type) {
+    public TelemetryDataSetViewModel(GraphType type) {
         this.graphType = type;
         this.temperatures = new HashMap<>();
         this.pressures = new HashMap<>();
@@ -30,7 +30,7 @@ public class GraphViewModel {
         this.counter = 0;
     }
 
-    public GraphViewModel(TelemetryModel[] telemetries, GraphType type) {
+    public TelemetryDataSetViewModel(TelemetryModel[] telemetries, GraphType type) {
         this.counter = 0;
         this.graphType = type;
         this.temperatures = new HashMap<>();

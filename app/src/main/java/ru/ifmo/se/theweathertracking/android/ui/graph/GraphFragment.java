@@ -1,43 +1,29 @@
 package ru.ifmo.se.theweathertracking.android.ui.graph;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.androidnetworking.common.ANRequest;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.github.mikephil.charting.charts.BarChart;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import okhttp3.internal.http1.Http1Codec;
-import ru.ifmo.se.theweathertracking.android.LoginActivity;
 import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
 import ru.ifmo.se.theweathertracking.api.TelemetriesController;
-import ru.ifmo.se.theweathertracking.api.model.TelemetryModel;
+import ru.ifmo.se.theweathertracking.api.model.TelemetryDataSetViewModel;
 
 public class GraphFragment extends Fragment {
     private TelemetriesController telemetriesController;
     private GraphBuilder graphBuilder;
     private GraphType graphType;
     private String dateFormat;
-    private GraphViewModel viewModel;
+    private TelemetryDataSetViewModel viewModel;
 
     BarChart temperatureChart;
     BarChart pressureChart;
@@ -50,7 +36,7 @@ public class GraphFragment extends Fragment {
         telemetriesController =  new TelemetriesController(getContext());
         graphBuilder = new GraphBuilder();
         graphType = GraphType.valueOf(getArguments().getString("type", "TODAY"));
-        viewModel = new GraphViewModel(graphType);
+        viewModel = new TelemetryDataSetViewModel(graphType);
 
         temperatureChart = (BarChart) root.findViewById(R.id.temp_chart);
         pressureChart = (BarChart) root.findViewById(R.id.pres_chart);
@@ -76,7 +62,7 @@ public class GraphFragment extends Fragment {
         return root;
     }
 
-    public void OnGetDataSuccess(GraphViewModel viewModel) {
+    public void OnGetDataSuccess(TelemetryDataSetViewModel viewModel) {
         // draw graphs
         Pair<ArrayList<String>, ArrayList<Integer>> temp = viewModel.getTemperatures(dateFormat);
         graphBuilder.fillBarChart(temperatureChart, "Temperature", temp.first, temp.second);

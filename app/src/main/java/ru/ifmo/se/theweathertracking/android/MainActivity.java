@@ -1,32 +1,17 @@
 package ru.ifmo.se.theweathertracking.android;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
 
-import com.androidnetworking.common.ANRequest;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphType;
-import ru.ifmo.se.theweathertracking.android.ui.graph.GraphViewModel;
-import ru.ifmo.se.theweathertracking.api.model.TelemetryModel;
 import ru.ifmo.se.theweathertracking.api.model.TelemetryViewModel;
 import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 
