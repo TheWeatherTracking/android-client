@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.*;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import okhttp3.Response;
 import ru.ifmo.se.theweathertracking.api.UsersController;
 import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 
@@ -56,6 +60,10 @@ public class LoginActivity extends BaseActivity {
         Context ctx = getApplicationContext();
         usersController = new UsersController(ctx);
         propertiesManager = new PropertiesManager(ctx);
+
+        if (propertiesManager.hasValidToken()) {
+            propertiesManager.removeToken();
+        }
     }
 
     public void login() {
@@ -73,21 +81,13 @@ public class LoginActivity extends BaseActivity {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        usersController.getLoginRequest(emailText, passwordText)
-                .getAsJSONObject(new JSONObjectRequestListener() {
+        propertiesManager.saveToken(emailText, passwordText, System.currentTimeMillis() + PropertiesManager.DefaultExpiration);
+        usersController.getLoginRequest(emailText)
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
             @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    //TODO: handle login response
-                    JSONObject entity = response.getJSONObject("Entity");
-                    long expiration = entity.getLong("Expires");
-                    onLoginSuccess(emailText, passwordText, expiration);
-                } catch (JSONException e) {
-                    onLoginFailed();
-                    e.printStackTrace();
-                } finally {
-                    progressDialog.dismiss();
-                }
+            public void onResponse(Response response) {
+                onLoginSuccess();
+                progressDialog.dismiss();
             }
             @Override
             public void onError(ANError error) {
@@ -97,9 +97,9 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    public void onLoginSuccess(String login, String password, long expiration) {
+    public void onLoginSuccess() {
         submitButton.setEnabled(true);
-        propertiesManager.saveToken(login, password, expiration);
+
         if (propertiesManager.hasValidToken()) {
             Toast.makeText(getBaseContext(), "Login succeed", Toast.LENGTH_LONG).show();
         }
@@ -107,6 +107,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void onLoginFailed() {
+        propertiesManager.removeToken();
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         submitButton.setEnabled(true);
     }
@@ -116,12 +117,12 @@ public class LoginActivity extends BaseActivity {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        if (emailText.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+        /*if (emailText.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
             email.setError("enter a valid email address");
             valid = false;
         } else {
             email.setError(null);
-        }
+        }*/
 
         if (passwordText.isEmpty() || passwordText.length() < 4 || passwordText.length() > 10) {
             password.setError("Password should be between 4 and 10 alphanumeric characters");

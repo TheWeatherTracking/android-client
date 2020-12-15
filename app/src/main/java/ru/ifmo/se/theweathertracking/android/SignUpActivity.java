@@ -70,7 +70,7 @@ public class SignUpActivity extends BaseActivity {
         String passwordString = this.password.getText().toString();
         String confirmedPasswordString = confirmedPassword.getText().toString();
 
-        usersController.getLoginRequest(emailString, passwordString)
+        usersController.getSignUpRequest(emailString, passwordString)
                 .getAsOkHttpResponse(new OkHttpResponseListener() {
                     @Override
                     public void onResponse(Response response) {

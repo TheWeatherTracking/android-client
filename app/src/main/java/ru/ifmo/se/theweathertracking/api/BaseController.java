@@ -10,7 +10,7 @@ import ru.ifmo.se.theweathertracking.util.PropertiesManager;
 public class BaseController {
 
     protected Context context;
-    private PropertiesManager propertiesManager;
+    protected PropertiesManager propertiesManager;
 
     public BaseController(Context ctx) {
 

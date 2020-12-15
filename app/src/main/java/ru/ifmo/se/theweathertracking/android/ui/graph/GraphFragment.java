@@ -1,6 +1,7 @@
 package ru.ifmo.se.theweathertracking.android.ui.graph;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -10,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
@@ -21,6 +25,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import okhttp3.internal.http1.Http1Codec;
+import ru.ifmo.se.theweathertracking.android.LoginActivity;
+import ru.ifmo.se.theweathertracking.android.MainActivity;
 import ru.ifmo.se.theweathertracking.android.R;
 import ru.ifmo.se.theweathertracking.api.TelemetriesController;
 import ru.ifmo.se.theweathertracking.api.model.TelemetryModel;
@@ -30,78 +37,43 @@ public class GraphFragment extends Fragment {
     private GraphBuilder graphBuilder;
     private GraphType graphType;
     private String dateFormat;
+    private GraphViewModel viewModel;
 
     BarChart temperatureChart;
     BarChart pressureChart;
     BarChart moistureChart;
+    BarChart luminosityChart;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_graph, container, false);
         telemetriesController =  new TelemetriesController(getContext());
         graphBuilder = new GraphBuilder();
-
         graphType = GraphType.valueOf(getArguments().getString("type", "TODAY"));
+        viewModel = new GraphViewModel(graphType);
+
         temperatureChart = (BarChart) root.findViewById(R.id.temp_chart);
         pressureChart = (BarChart) root.findViewById(R.id.pres_chart);
         moistureChart = (BarChart) root.findViewById(R.id.moist_chart);
-
-        getDataSet();
-
-        return root;
-    }
-
-    private void getDataSet() {
-        ANRequest request;
-
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Fetching data...");
-        progressDialog.show();
+        luminosityChart = (BarChart) root.findViewById(R.id.luminosity_chart);
 
         switch (graphType){
             case YESTERDAY:
-                request = telemetriesController.getYesterdayTelemetry();
                 dateFormat = "HH:mm";
+                viewModel = ((MainActivity)getActivity()).telemetryViewModel.YesterdayViewModel;
                 break;
             case THREE_DAYS:
-                request = telemetriesController.getThreeDaysTelemetry();
-                dateFormat = "dd.MM";
+                dateFormat = "dd/MM";
+                viewModel = ((MainActivity)getActivity()).telemetryViewModel.ThreeDaysViewModel;
                 break;
             case TODAY:
             default:
-                request = telemetriesController.getTodayTelemetry();
                 dateFormat = "HH:mm";
+                viewModel = ((MainActivity)getActivity()).telemetryViewModel.TodayViewModel;
         }
+        OnGetDataSuccess(viewModel);
 
-        request.getAsJSONObject(new JSONObjectRequestListener() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response
-                            .getJSONObject("_embedded")
-                            .getJSONArray("telemetries");
-                    if (response.length() == 0) {
-                        OnGetDataFailed("No data available");
-                    }
-                    TelemetryModel[] array = getTelemetryArray(jsonArray);
-                    GraphViewModel viewModel = new GraphViewModel(array);
-                    OnGetDataSuccess(viewModel);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    OnGetDataFailed("Error occurred");
-                } finally {
-                    progressDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onError(ANError anError) {
-                OnGetDataFailed("Error occurred");
-                progressDialog.dismiss();
-            }
-        });
-
+        return root;
     }
 
     public void OnGetDataSuccess(GraphViewModel viewModel) {
@@ -114,24 +86,8 @@ public class GraphFragment extends Fragment {
 
         Pair<ArrayList<String>, ArrayList<Integer>> moist = viewModel.getMoisture(dateFormat);
         graphBuilder.fillBarChart(moistureChart, "Moisture", moist.first, moist.second);
-    }
 
-    public void OnGetDataFailed(String message) {
-        // TODO: handle error, check unauthorized response
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    }
-
-    private TelemetryModel[] getTelemetryArray(JSONArray jsonArray){
-        int length = jsonArray.length();
-        TelemetryModel[] array = new TelemetryModel[length];
-        for (int i=0; i<length; i++) {
-            try {
-                array[i] = new TelemetryModel(jsonArray.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return array;
+        Pair<ArrayList<String>, ArrayList<Integer>> luminos = viewModel.getLuminosities(dateFormat);
+        graphBuilder.fillBarChart(luminosityChart, "Luminosity", luminos.first, luminos.second);
     }
 }

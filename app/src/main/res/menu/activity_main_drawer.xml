@@ -16,5 +16,11 @@
         <item
             android:id="@+id/nav_three_days"
             android:title="@string/menu_three_days" />
+        <item
+            android:id="@+id/deviceActivity"
+            android:title="@string/change_device" />
+        <item
+            android:id="@+id/loginActivity"
+            android:title="@string/logout" />
     </group>
 </menu>
