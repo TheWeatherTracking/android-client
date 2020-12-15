@@ -1,5 +1,6 @@
 package ru.ifmo.se.theweathertracking.api.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,20 @@ public class TelemetryModel {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static TelemetryModel[] getTelemetryArray(JSONArray jsonArray){
+        int length = jsonArray.length();
+        TelemetryModel[] array = new TelemetryModel[length];
+        for (int i=0; i<length; i++) {
+            try {
+                array[i] = new TelemetryModel(jsonArray.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return array;
     }
 
     private Integer getIntValue(JSONObject jsonObject, String fieldName){

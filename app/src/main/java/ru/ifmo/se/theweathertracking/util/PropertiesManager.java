@@ -12,12 +12,38 @@ public class PropertiesManager {
     private Context context;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+    public static long DefaultExpiration = 86400000;
 
     public PropertiesManager(Context ctx) {
         context = ctx;
         sharedPref = context.getSharedPreferences(
                 context.getString(R.string.security_bucket_name), Context.MODE_PRIVATE);
         editor = sharedPref.edit();
+    }
+
+    public void saveDevice(String device) {
+        editor.putString(context.getString(R.string.security_device_value), device);
+        editor.apply();
+    }
+
+    public void removeDevice() {
+        editor.remove(context.getString(R.string.security_device_value));
+        editor.apply();
+    }
+
+    public String getDevice() {
+        String result = sharedPref.getString(context.getString(R.string.security_device_value), null);
+        return result;
+    }
+
+    public boolean hasDevice() {
+        String device = getDevice();
+        return device != null && !device.equals("");
+    }
+
+    public String getLogin() {
+        String result = sharedPref.getString(context.getString(R.string.security_login_value), null);
+        return result;
     }
 
     public void saveToken(String login, String password, long expiration) {
@@ -28,16 +54,18 @@ public class PropertiesManager {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String token = Base64.encodeToString(data, Base64.DEFAULT);
+        String token = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
         editor.putString(context.getString(R.string.security_token_value), token);
         editor.putLong(context.getString(R.string.security_token_expiration), expiration);
-        editor.commit();
+        editor.putString(context.getString(R.string.security_login_value), login);
+        editor.apply();
     }
 
     public void removeToken() {
         editor.remove(context.getString(R.string.security_token_value));
         editor.remove(context.getString(R.string.security_token_expiration));
-        editor.commit();
+        editor.remove(context.getString(R.string.security_login_value));
+        editor.apply();
     }
 
     public String getToken() {

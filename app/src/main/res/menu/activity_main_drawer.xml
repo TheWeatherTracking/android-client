@@ -5,6 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_devices"
+            android:title="@string/menu_devices" />
+        <item
             android:id="@+id/nav_now"
             android:title="@string/menu_now" />
         <item
@@ -16,5 +19,8 @@
         <item
             android:id="@+id/nav_three_days"
             android:title="@string/menu_three_days" />
+        <item
+            android:id="@+id/loginActivity"
+            android:title="@string/logout" />
     </group>
 </menu>

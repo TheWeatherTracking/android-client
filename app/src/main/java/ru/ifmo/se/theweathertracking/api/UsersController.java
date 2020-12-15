@@ -7,6 +7,8 @@ import com.androidnetworking.common.ANRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ru.ifmo.se.theweathertracking.util.PropertiesManager;
+
 // api/users
 public class UsersController extends BaseController {
 
@@ -14,11 +16,9 @@ public class UsersController extends BaseController {
         super(ctx);
     }
 
-    // POST api/users
-    public ANRequest getLoginRequest(String userName, String password) {
-//TODO: implement right login request
-        return getPostRequest("/users")
-                .addJSONObjectBody(createUserBody(userName, password))
+    public ANRequest getLoginRequest(String userName) {
+        String path = "/users/search/getByLogin?login=" + userName;
+        return getGetRequestWithAuth(path)
                 .build();
     }
 
