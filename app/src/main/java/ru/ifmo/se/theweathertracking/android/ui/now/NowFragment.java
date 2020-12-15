@@ -69,18 +69,12 @@ public class NowFragment extends DataFragment {
         TextView temperatureTextView = root.findViewById(R.id.temperature_now);
         temperatureTextView.setText(telemetryModel.Temperature.toString() + "°C");
 
-        TextView pressureTextView = root.findViewById(R.id.pressure_now);
-        pressureTextView.setText(R.string.pressure);
         TextView pressureValueTextView = root.findViewById(R.id.pressure_value_now);
         pressureValueTextView.setText(telemetryModel.Pressure.toString() + " mm Hg");
 
-        TextView moistureTextView = root.findViewById(R.id.moisture_now);
-        moistureTextView.setText(R.string.moisture);
         TextView moistureValueTextView = root.findViewById(R.id.moisture_value_now);
         moistureValueTextView.setText(telemetryModel.Moisture.toString() + " %");
 
-        TextView luminosityTextView = root.findViewById(R.id.luminosity_now);
-        luminosityTextView.setText(R.string.luminosity);
         TextView luminosityValueTextView = root.findViewById(R.id.luminosity_value_now);
         luminosityValueTextView.setText(telemetryModel.Luminosity.toString() + " lx");
     }

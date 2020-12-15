@@ -19,19 +19,117 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/text_three_days"
+    <TableLayout
+        android:id="@+id/table_three_days"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="209dp">
+
+        <TableRow
+            android:layout_marginTop="80dp">
+
+            <LinearLayout
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/temperature_three_days"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/temperature"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/pressure_three_days"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pressure"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/moisture_three_days"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/moisture"
+                android:textAlignment="center"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/luminosity_three_daysy"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/luminosity"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </TableRow>
+
+        <!--        <TableRow-->
+        <!--            android:layout_marginTop="20dp">-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/tmstamp_value_today"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@string/tmstamp"-->
+        <!--                android:textAlignment="center"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/temperature_value_today"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="value"-->
+        <!--                android:textAlignment="center"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/pressure_value_today"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="value"-->
+        <!--                android:textAlignment="center"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/moisture_value_today"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="value"-->
+        <!--                android:textAlignment="center"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/luminosity_value_today"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="value"-->
+        <!--                android:textAlignment="center"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+        <!--        </TableRow>-->
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,11 +24,11 @@
     <string name="device2">Device 2</string>
     <string name="device3">Device 3</string>
 
-    <string name="tmstamp">tmstamp:</string>
-    <string name="temperature">temperature:</string>
-    <string name="pressure">pressure:</string>
-    <string name="moisture">moisture:</string>
-    <string name="luminosity">luminosity:</string>
+    <string name="tmstamp">tmstamp</string>
+    <string name="temperature">temperature</string>
+    <string name="pressure">pressure</string>
+    <string name="moisture">moisture</string>
+    <string name="luminosity">luminosity</string>
 
 
 
