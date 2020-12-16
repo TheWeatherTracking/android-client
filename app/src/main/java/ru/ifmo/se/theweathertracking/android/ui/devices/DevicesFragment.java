@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -20,6 +21,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import ru.ifmo.se.theweathertracking.android.DataFragment;
 import ru.ifmo.se.theweathertracking.android.R;
@@ -92,27 +98,22 @@ public class DevicesFragment extends DataFragment {
         //this method is called when all data were received from sever and saved in deviceModels
         RadioGroup radioGroup = root.findViewById(R.id.radio_group);
 
-        RadioButton radioButton1 = root.findViewById(R.id.radioButton1);
-        radioButton1.setText(deviceModels.get(0).Name);
+        Map<Integer, String> devices = new HashMap<Integer, String>();
 
-        RadioButton radioButton2 = root.findViewById(R.id.radioButton2);
-        radioButton2.setText(deviceModels.get(1).Name);
+        for (int i = 0; i < deviceModels.size(); i++) {
+            RadioButton radioButton = new RadioButton(getContext());
+            radioButton.setId(i);
+            radioButton.setText(deviceModels.get(i).Name);
 
-        RadioButton radioButton3 = root.findViewById(R.id.radioButton3);
-        radioButton3.setText(deviceModels.get(2).Name);
+            devices.put(radioButton.getId(), deviceModels.get(i).Name);
+
+            radioGroup.addView(radioButton);
+        }
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            switch(checkedId) {
-                case R.id.radioButton1:
-                    SaveChosenDevice(deviceModels.get(0).Name);
-                    break;
-                case R.id.radioButton2:
-                    SaveChosenDevice(deviceModels.get(1).Name);
-                    break;
-                case R.id.radioButton3:
-                    SaveChosenDevice(deviceModels.get(2).Name);
-                    break;
-            }
+
+            SaveChosenDevice(devices.get(checkedId));
+
         });
 
     }

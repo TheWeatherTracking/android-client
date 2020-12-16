@@ -95,7 +95,7 @@ public class YesterdayFragment extends TelemetryFragment {
 
                 TextView tmstampValueTextView = new TextView(getContext());
                 tmstampValueTextView.setText(telemetryDataSetViewModel
-                        .getTemperatures("dd/MM HH:mm").first.get(i));
+                        .getTemperatures("dd/MM HH:mm:ss").first.get(i));
                 tmstampValueTextView.setGravity(Gravity.CENTER);
 
                 TableRow tableRow = new TableRow(getContext());

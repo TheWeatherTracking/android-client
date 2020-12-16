@@ -98,7 +98,7 @@ public class TodayFragment extends TelemetryFragment {
 
                 TextView tmstampValueTextView = new TextView(getContext());
                 tmstampValueTextView.setText(telemetryDataSetViewModel
-                        .getTemperatures("dd/MM HH:mm").first.get(i));
+                        .getTemperatures("dd/MM HH:mm:ss").first.get(i));
                 tmstampValueTextView.setGravity(Gravity.CENTER);
 
                 TableRow tableRow = new TableRow(getContext());
@@ -106,14 +106,15 @@ public class TodayFragment extends TelemetryFragment {
                 params.span = 6;
                 params.topMargin = 20;
 
-                tableRow.addView(tmstampValueTextView);
-                tableRow.addView(temperatureValueTextView);
-                tableRow.addView(pressureValueTextView);
-                tableRow.addView(moistureValueTextView);
-                tableRow.addView(luminosityValueTextView);
+                tableRow.addView(tmstampValueTextView, params);
+                tableRow.addView(temperatureValueTextView, params);
+                tableRow.addView(pressureValueTextView, params);
+                tableRow.addView(moistureValueTextView, params);
+                tableRow.addView(luminosityValueTextView, params);
 
                 table.addView(tableRow);
-        }
+
+            }
 
 
         }

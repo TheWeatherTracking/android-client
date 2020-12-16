@@ -73,7 +73,8 @@ public class ThreeDaysFragment extends TelemetryFragment {
 
             for (int i = 0; i < telemetryDataSetViewModel.getTemperatures("dd/MM HH:mm").first.size(); i++) {
                 TextView temperatureValueTextView = new TextView(getContext());
-                temperatureValueTextView.setText(telemetryDataSetViewModel
+
+                temperatureValueTextView.setText( telemetryDataSetViewModel
                         .getTemperatures("dd/MM HH:mm").second.get(i).toString() + "°C");
                 temperatureValueTextView.setGravity(Gravity.CENTER);
 
@@ -94,7 +95,7 @@ public class ThreeDaysFragment extends TelemetryFragment {
 
                 TextView tmstampValueTextView = new TextView(getContext());
                 tmstampValueTextView.setText(telemetryDataSetViewModel
-                        .getTemperatures("dd/MM HH:mm").first.get(i));
+                        .getTemperatures("dd/MM HH:mm:ss").first.get(i));
                 tmstampValueTextView.setGravity(Gravity.CENTER);
 
                 TableRow tableRow = new TableRow(getContext());

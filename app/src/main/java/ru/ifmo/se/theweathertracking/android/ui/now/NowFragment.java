@@ -59,6 +59,7 @@ public class NowFragment extends DataFragment {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onGetDataSuccess() {
+
         //this method is called when all data were received from sever and saved in telemetryModel
         TextView temperatureTextView = root.findViewById(R.id.temperature_now);
         temperatureTextView.setText(telemetryModel.Temperature.toString() + "°C");
