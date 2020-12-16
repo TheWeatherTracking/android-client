@@ -21,7 +21,7 @@ public class TelemetryModel {
             try {
                 SimpleDateFormat format = new SimpleDateFormat(dateFormat);
                 this.Timestamp = format.parse(jsonObject.getString("tmstamp"));
-                this.Temperature = getIntValue(jsonObject, "temperature");
+                this.Temperature = getIntValue(jsonObject, "temperature") / 10;
                 this.Pressure = getIntValue(jsonObject, "pressure");
                 this.Moisture = getIntValue(jsonObject, "moisture");
                 this.Luminosity = getIntValue(jsonObject, "luminosity");

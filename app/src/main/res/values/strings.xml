@@ -7,12 +7,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="logout">Logout</string>
     <string name="menu_devices">Devices</string>
     <string name="menu_now">The weather now</string>
     <string name="menu_today">The weather today</string>
     <string name="menu_yesterday">The weather yesterday</string>
     <string name="menu_three_days">The weather for the last three days</string>
+    <string name="logout">Logout</string>
 
     <string name="tab_item_data">Values</string>
     <string name="tab_item_graph">Graphs</string>
@@ -23,6 +23,13 @@
     <string name="device1">Device 1</string>
     <string name="device2">Device 2</string>
     <string name="device3">Device 3</string>
+
+    <string name="tmstamp">tmstamp</string>
+    <string name="temperature">temperature</string>
+    <string name="pressure">pressure</string>
+    <string name="moisture">moisture</string>
+    <string name="luminosity">luminosity</string>
+
 
 
     <!-- Key names for properties stored in shared properties -->

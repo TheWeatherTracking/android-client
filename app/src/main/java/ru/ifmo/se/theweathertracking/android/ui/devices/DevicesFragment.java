@@ -1,16 +1,16 @@
 package ru.ifmo.se.theweathertracking.android.ui.devices;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -21,6 +21,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import ru.ifmo.se.theweathertracking.android.DataFragment;
 import ru.ifmo.se.theweathertracking.android.R;
@@ -32,20 +37,12 @@ public class DevicesFragment extends DataFragment {
     private DevicesController devicesController;
     private PropertiesManager propertiesManager;
     private ArrayList<DeviceModel> deviceModels;
-    private DevicesViewModel devicesViewModel;
+    private View root;
 
+    @SuppressLint("NonConstantResourceId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        devicesViewModel =
-                new ViewModelProvider(this).get(DevicesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_devices, container, false);
-//        final TextView textView = root.findViewById(R.id.text_devices);
-//        devicesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+        root = inflater.inflate(R.layout.fragment_devices, container, false);
 
         propertiesManager = new PropertiesManager(getContext());
         devicesController = new DevicesController(getContext());
@@ -95,9 +92,30 @@ public class DevicesFragment extends DataFragment {
                 .navigate(R.id.action_nav_devices_to_loginActivity);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onGetDataSuccess() {
         //this method is called when all data were received from sever and saved in deviceModels
+        RadioGroup radioGroup = root.findViewById(R.id.radio_group);
+
+        Map<Integer, String> devices = new HashMap<Integer, String>();
+
+        for (int i = 0; i < deviceModels.size(); i++) {
+            RadioButton radioButton = new RadioButton(getContext());
+            radioButton.setId(i);
+            radioButton.setText(deviceModels.get(i).Name);
+
+            devices.put(radioButton.getId(), deviceModels.get(i).Name);
+
+            radioGroup.addView(radioButton);
+        }
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+
+            SaveChosenDevice(devices.get(checkedId));
+
+        });
+
     }
 
     @Override

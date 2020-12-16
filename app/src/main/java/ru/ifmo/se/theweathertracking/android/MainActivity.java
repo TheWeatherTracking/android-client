@@ -2,8 +2,10 @@ package ru.ifmo.se.theweathertracking.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,6 +69,11 @@ public class MainActivity extends BaseActivity {
         if (!propertiesManager.hasDevice()) {
             //TODO: navigate to devices
         }
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.nav_header_main, navigationView, true);
+        TextView emailText = view.findViewById(R.id.emailTextView);
+        emailText.setText(propertiesManager.getLogin());
     }
 
     @Override
