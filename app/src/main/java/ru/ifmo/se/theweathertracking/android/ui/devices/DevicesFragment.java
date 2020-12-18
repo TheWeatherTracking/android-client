@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import ru.ifmo.se.theweathertracking.android.DataFragment;
@@ -98,21 +99,33 @@ public class DevicesFragment extends DataFragment {
         //this method is called when all data were received from sever and saved in deviceModels
         RadioGroup radioGroup = root.findViewById(R.id.radio_group);
 
-        Map<Integer, String> devices = new HashMap<Integer, String>();
+        Map<Integer, String> devicesNames = new HashMap<>();
+        Map<Integer, RadioButton> devices = new HashMap<>();
+
+        PropertiesManager propertiesManager = new PropertiesManager(getContext());
+
+        String chosenName = propertiesManager.getDevice();;
 
         for (int i = 0; i < deviceModels.size(); i++) {
             RadioButton radioButton = new RadioButton(getContext());
             radioButton.setId(i);
             radioButton.setText(deviceModels.get(i).Name);
 
-            devices.put(radioButton.getId(), deviceModels.get(i).Name);
+            if (chosenName.equals(deviceModels.get(i).Name)){
+                radioButton.setChecked(true);
+            }
+
+            int id = radioButton.getId();
+            devicesNames.put(id, deviceModels.get(i).Name);
+            devices.put(id, radioButton);
 
             radioGroup.addView(radioButton);
         }
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
-            SaveChosenDevice(devices.get(checkedId));
+            SaveChosenDevice(devicesNames.get(checkedId));
+            Objects.requireNonNull(devices.get(checkedId)).setChecked(true);
 
         });
 

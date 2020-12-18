@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+
         if (!propertiesManager.hasDevice()) {
             //TODO: navigate to devices
         }

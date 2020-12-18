@@ -19,7 +19,7 @@
 
     <string name="graph_bottom">Show graph</string>
 
-    <string name="choose_device">Choose the devices:</string>
+    <string name="choose_device">Choose the device:</string>
     <string name="device1">Device 1</string>
     <string name="device2">Device 2</string>
     <string name="device3">Device 3</string>
