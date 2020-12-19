@@ -104,14 +104,14 @@ public class DevicesFragment extends DataFragment {
 
         PropertiesManager propertiesManager = new PropertiesManager(getContext());
 
-        String chosenName = propertiesManager.getDevice();;
+        String chosenName = propertiesManager.getDevice();
 
         for (int i = 0; i < deviceModels.size(); i++) {
             RadioButton radioButton = new RadioButton(getContext());
             radioButton.setId(i);
             radioButton.setText(deviceModels.get(i).Name);
 
-            if (chosenName.equals(deviceModels.get(i).Name)){
+            if (chosenName != null && chosenName.equals(deviceModels.get(i).Name)){
                 radioButton.setChecked(true);
             }
 

@@ -86,7 +86,12 @@ public class LoginActivity extends BaseActivity {
                 .getAsOkHttpResponse(new OkHttpResponseListener() {
             @Override
             public void onResponse(Response response) {
-                onLoginSuccess();
+                if (!response.isSuccessful()) {
+                    onLoginFailed();
+                }
+                else {
+                    onLoginSuccess();
+                }
                 progressDialog.dismiss();
             }
             @Override
